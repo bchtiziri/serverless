@@ -3,21 +3,22 @@ from datetime import datetime
 
 def lambda_handler(event, context):
     route = event.get("rawPath", "/")
+    print("Route reçue:", route)  # pour voir dans CloudWatch
 
-    if route == "/hello":
+    if "/hello" in route:
         return {
             "statusCode": 200,
             "body": json.dumps({"message": "Bonjour depuis AWS Lambda !"})
         }
 
-    elif route == "/time":
+    elif "/time" in route:
         now = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
         return {
             "statusCode": 200,
             "body": json.dumps({"heure_utc": now})
         }
 
-    elif route == "/echo":
+    elif "/echo" in route:
         body = json.loads(event.get("body") or "{}")
         return {
             "statusCode": 200,
@@ -27,5 +28,5 @@ def lambda_handler(event, context):
     else:
         return {
             "statusCode": 404,
-            "body": json.dumps({"erreur": "Route introuvable"})
+            "body": json.dumps({"erreur": "Route introuvable", "route_recue": route})
         }
