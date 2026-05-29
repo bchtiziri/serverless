@@ -13,7 +13,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Créer l'archive ZIP du code
-      run: zip -r function.zip lambda_function.py
+      run: zip -r function.zip . -i lambda_function.py
 
     - name: Configurer les identifiants AWS
       uses: aws-actions/configure-aws-credentials@v4
