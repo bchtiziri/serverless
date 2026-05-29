@@ -20,7 +20,6 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }} # Requis pour les comptes étudiants
         aws-region: eu-north-1 # Remplace par ta région AWS (ex: us-east-1, eu-west-3...)
 
     - name: Déployer le code sur AWS Lambda
