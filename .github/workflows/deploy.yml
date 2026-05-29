@@ -1,10 +1,8 @@
 name: Deploy to AWS Lambda
-
 on:
   push:
     branches:
-      - main  # Déclenche le déploiement à chaque push sur la branche principale
-
+      - main
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -20,7 +18,7 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: eu-north-1 # Remplace par ta région AWS (ex: us-east-1, eu-west-3...)
+        aws-region: eu-north-1
 
     - name: Déployer le code sur AWS Lambda
       run: |
