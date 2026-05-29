@@ -1,0 +1,30 @@
+name: Deploy to AWS Lambda
+
+on:
+  push:
+    branches:
+      - main  # Déclenche le déploiement à chaque push sur la branche principale
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout du code
+      uses: actions/checkout@v4
+
+    - name: Créer l'archive ZIP du code
+      run: zip -r function.zip lambda_function.py
+
+    - name: Configurer les identifiants AWS
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }} # Requis pour les comptes étudiants
+        aws-region: eu-north-1 # Remplace par ta région AWS (ex: us-east-1, eu-west-3...)
+
+    - name: Déployer le code sur AWS Lambda
+      run: |
+        aws lambda update-function-code \
+          --function-name Serverless_function \
+          --zip-file fileb://function.zip
